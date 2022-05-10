@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.peeranm.simpledictionary.feature_word_meaning.presentation.main.MainFragment"
+        android:label="main_fragment"
+        tools:layout="@layout/main_fragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_wordDetailsFragment"
+            app:destination="@id/wordDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.peeranm.simpledictionary.feature_word_meaning.presentation.search_results.SearchResultFragment"
+        android:label="search_result_fragment"
+        tools:layout="@layout/search_result_fragment" >
+        <argument
+            android:name="searchText"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchResultFragment_to_wordDetailsFragment"
+            app:destination="@id/wordDetailsFragment"
+            app:popUpTo="@id/searchResultFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/wordDetailsFragment"
+        android:name="com.peeranm.simpledictionary.feature_word_meaning.presentation.word_details.WordDetailsFragment"
+        android:label="word_details_fragment"
+        tools:layout="@layout/word_details_fragment" >
+        <argument
+            android:name="wordInfoId"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
+</navigation>
