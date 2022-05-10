@@ -3,7 +3,6 @@ package com.peeranm.simpledictionary.feature_word_meaning.presentation.word_deta
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.peeranm.simpledictionary.core.DataState
 import com.peeranm.simpledictionary.core.getDummyWordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.WordInfoUseCases

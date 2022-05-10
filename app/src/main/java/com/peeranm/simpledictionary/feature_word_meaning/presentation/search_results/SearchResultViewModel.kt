@@ -3,7 +3,7 @@ package com.peeranm.simpledictionary.feature_word_meaning.presentation.search_re
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.peeranm.simpledictionary.core.DataState
+import com.peeranm.simpledictionary.core.Resource
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.WordInfoUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,8 +20,8 @@ class SearchResultViewModel @Inject constructor(
     private val wordInfoUseCases: WordInfoUseCases
 ) : ViewModel() {
 
-    private val _resultWordInfos = MutableStateFlow<DataState<List<WordInfo>>>(DataState.None())
-    val resultWordInfos: StateFlow<DataState<List<WordInfo>>> = _resultWordInfos
+    private val _resultWordInfos = MutableStateFlow<Resource<List<WordInfo>>>(Resource.None())
+    val resultWordInfos: StateFlow<Resource<List<WordInfo>>> = _resultWordInfos
 
     init {
         val searchText = savedStateHandle.get<String>("searchText")

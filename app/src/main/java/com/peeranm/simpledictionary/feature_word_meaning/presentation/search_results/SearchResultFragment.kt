@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.peeranm.simpledictionary.R
-import com.peeranm.simpledictionary.core.DataState
+import com.peeranm.simpledictionary.core.Resource
 import com.peeranm.simpledictionary.core.OnItemClickListener
 import com.peeranm.simpledictionary.core.collectWithLifecycle
 import com.peeranm.simpledictionary.core.setActionBarTitle
@@ -20,7 +20,6 @@ import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.utils.SearchResultAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
@@ -65,19 +64,19 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
 
         searchResultsJob = collectWithLifecycle(viewModel.resultWordInfos) { resultState ->
             when (resultState) {
-                is DataState.Loading -> {
+                is Resource.Loading -> {
                     showOrHideProgressbar(wannaShow = true)
                     if (resultState.data != null) {
                         adapter?.submitList(resultState.data)
                         showOrHideProgressbar(wannaShow = false)
                     }
                 }
-                is DataState.Error -> {
+                is Resource.Error -> {
                     if (resultState.data != null) { adapter?.submitList(resultState.data) }
                     Snackbar.make(view, resultState.message, Snackbar.LENGTH_SHORT).show()
                     showOrHideProgressbar(wannaShow = false)
                 }
-                is DataState.Success -> {
+                is Resource.Success -> {
                     adapter?.submitList(resultState.data)
                     showOrHideProgressbar(wannaShow = false)
                 }
