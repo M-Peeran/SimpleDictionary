@@ -5,4 +5,5 @@
     <string name="word_details">Word Details</string>
     <string name="search_for_meaning">Search for meaning…</string>
     <string name="recent_searches">Recent Searches</string>
+    <string name="your_recent_searched_words_will_appear_here">Your recent searched words will appear here</string>
 </resources>

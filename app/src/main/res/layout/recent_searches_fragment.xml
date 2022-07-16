@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/listRecentSearches"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:context=".feature_word_meaning.presentation.recent_searches.RecentSearchesFragment" />
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".feature_word_meaning.presentation.recent_searches.RecentSearchesFragment">
+
+    <TextView
+        android:id="@+id/textRecentSearchesMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:gravity="center|center_horizontal"
+        android:text="@string/your_recent_searched_words_will_appear_here" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listRecentSearches"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" >
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</FrameLayout>
+

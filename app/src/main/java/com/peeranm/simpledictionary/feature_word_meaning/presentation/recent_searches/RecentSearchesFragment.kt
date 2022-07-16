@@ -45,7 +45,12 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo>, Search
         setHasOptionsMenu(true)
         setActionBarTitle(R.string.recent_searches)
         binding.bindList()
-        collectLatestWithLifecycle(viewModel.recentSearches) { adapter?.submitList(it) }
+        collectLatestWithLifecycle(viewModel.recentSearches) { wordInfos ->
+            if (wordInfos.isNotEmpty()) {
+                binding.toggleRecentSearchesMessage(false)
+                adapter?.submitList(wordInfos)
+            }
+        }
     }
 
     override fun onItemCLick(item: WordInfo, position: Int) {
@@ -77,6 +82,10 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo>, Search
         listRecentSearches.adapter = adapter
         listRecentSearches.layoutManager = layoutManager
         listRecentSearches.addItemDecoration(DividerItemDecoration(requireContext(), layoutManager.orientation))
+    }
+
+    private fun RecentSearchesFragmentBinding.toggleRecentSearchesMessage(showNow: Boolean = false) {
+        textRecentSearchesMessage.visibility = if (showNow) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
