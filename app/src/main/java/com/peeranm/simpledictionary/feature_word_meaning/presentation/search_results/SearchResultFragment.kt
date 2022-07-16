@@ -9,17 +9,12 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.snackbar.Snackbar
 import com.peeranm.simpledictionary.R
-import com.peeranm.simpledictionary.core.Resource
-import com.peeranm.simpledictionary.core.OnItemClickListener
-import com.peeranm.simpledictionary.core.collectWithLifecycle
-import com.peeranm.simpledictionary.core.setActionBarTitle
+import com.peeranm.simpledictionary.core.*
 import com.peeranm.simpledictionary.databinding.SearchResultFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.utils.SearchResultAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 
 @AndroidEntryPoint
 class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
@@ -30,7 +25,6 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
 
     private val viewModel: SearchResultViewModel by viewModels()
     private var adapter: SearchResultAdapter? = null
-    private var searchResultsJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,25 +56,17 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
             )
         }
 
-        searchResultsJob = collectWithLifecycle(viewModel.resultWordInfos) { resultState ->
-            when (resultState) {
-                is Resource.Loading -> {
-                    showOrHideProgressbar(wannaShow = true)
-                    if (resultState.data != null) {
-                        adapter?.submitList(resultState.data)
-                        showOrHideProgressbar(wannaShow = false)
-                    }
-                }
-                is Resource.Error -> {
-                    if (resultState.data != null) { adapter?.submitList(resultState.data) }
-                    Snackbar.make(view, resultState.message, Snackbar.LENGTH_SHORT).show()
-                    showOrHideProgressbar(wannaShow = false)
-                }
-                is Resource.Success -> {
-                    adapter?.submitList(resultState.data)
-                    showOrHideProgressbar(wannaShow = false)
-                }
-                else -> Unit
+        collectWithLifecycle(viewModel.resultWordInfos) { data ->
+            if (data.isNotEmpty()) {
+                adapter?.submitList(data)
+                binding.toggleProgressbar(showNow = false)
+            }
+        }
+
+        collectWithLifecycle(viewModel.message) { message ->
+            if (message.isNotEmpty()) {
+                binding.toggleProgressbar(showNow = false)
+                showToast(message)
             }
         }
     }
@@ -91,19 +77,12 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
         )
     }
 
-    private suspend fun showOrHideProgressbar(wannaShow: Boolean) {
-        withContext(Dispatchers.Main) {
-            if (wannaShow) binding.progressBar.visibility = View.VISIBLE
-            else {
-                delay(500L)
-                binding.progressBar.visibility = View.GONE
-            }
-        }
+    private fun SearchResultFragmentBinding.toggleProgressbar(showNow: Boolean) {
+        progressBar.visibility = if (showNow) View.VISIBLE else View.GONE
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        searchResultsJob = null
         adapter?.onClear()
         adapter = null
         _binding = null
