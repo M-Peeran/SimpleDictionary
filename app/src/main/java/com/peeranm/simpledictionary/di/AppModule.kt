@@ -9,13 +9,12 @@ import com.peeranm.simpledictionary.feature_word_meaning.use_cases.GetAllWordInf
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.GetWordInfoFromCacheUseCase
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.GetWordInfoUseCase
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.WordInfoUseCases
-import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoDtoMapper
-import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoEntityMapper
+import com.peeranm.simpledictionary.feature_word_meaning.utils.mappers.WordInfoDtoMapper
+import com.peeranm.simpledictionary.feature_word_meaning.utils.mappers.WordInfoEntityMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module

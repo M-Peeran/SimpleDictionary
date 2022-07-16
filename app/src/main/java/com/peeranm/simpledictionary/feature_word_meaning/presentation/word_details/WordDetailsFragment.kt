@@ -5,25 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
-import androidx.lifecycle.lifecycleScope
 import com.peeranm.simpledictionary.R
-import com.peeranm.simpledictionary.core.collectLatestWithLifecycle
 import com.peeranm.simpledictionary.core.collectWithLifecycle
 import com.peeranm.simpledictionary.core.setActionBarTitle
 import com.peeranm.simpledictionary.databinding.WordDetailsFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.model.Definition
-import com.peeranm.simpledictionary.feature_word_meaning.model.Meaning
 import com.peeranm.simpledictionary.feature_word_meaning.utils.WordDetailsAdapter
-import com.peeranm.simpledictionary.feature_word_meaning.utils.dummyData
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class WordDetailsFragment : Fragment() {

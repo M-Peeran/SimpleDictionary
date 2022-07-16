@@ -1,4 +1,4 @@
-package com.peeranm.simpledictionary.feature_word_meaning.utils
+package com.peeranm.simpledictionary.feature_word_meaning.utils.mappers
 
 import com.peeranm.simpledictionary.core.Mapper
 import com.peeranm.simpledictionary.feature_word_meaning.data.local.entity.WordInfoEntity
