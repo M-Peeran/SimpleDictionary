@@ -1,4 +1,4 @@
-package com.peeranm.simpledictionary.feature_word_meaning.presentation.recent_searches
+package com.peeranm.simpledictionary.feature_word_meaning.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

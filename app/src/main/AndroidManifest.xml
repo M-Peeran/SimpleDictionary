@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SimpleDictionary">
         <activity
-            android:name=".feature_word_meaning.presentation.recent_searches.MainActivity"
+            android:name=".feature_word_meaning.presentation.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

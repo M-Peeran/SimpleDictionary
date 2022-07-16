@@ -9,4 +9,4 @@
     android:id="@+id/navHost"
     app:defaultNavHost="true"
     app:navGraph="@navigation/nav_graph"
-    tools:context=".feature_word_meaning.presentation.recent_searches.MainActivity" />
+    tools:context=".feature_word_meaning.presentation.MainActivity" />
