@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface WordInfoRepository {
     suspend fun getWordInfoById(id: Int): WordInfo
-    suspend fun getWordInfo(word: String, languageCode: String): Flow<Resource<List<WordInfo>>>
+    fun getWordInfo(word: String, languageCode: String): Flow<Resource<List<WordInfo>>>
     fun getAllWordInfo(): Flow<List<WordInfo>>
 
 }

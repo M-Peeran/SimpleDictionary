@@ -26,7 +26,7 @@ class WordInfoRepositoryImpl(
         )
     }
 
-    override suspend fun getWordInfo(word: String, languageCode: String)
+    override fun getWordInfo(word: String, languageCode: String)
     : Flow<Resource<List<WordInfo>>> = flow {
         emit(Resource.Loading())
         val oldWordInfos = wordInfoEntityMapper.fromEntities(wordInfoDao.getWordInfos(word))

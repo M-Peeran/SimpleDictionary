@@ -7,7 +7,7 @@ import com.peeranm.simpledictionary.core.Resource
 import kotlinx.coroutines.flow.Flow
 
 class GetWordInfoUseCase(private val repository: WordInfoRepository) {
-    suspend operator fun invoke(word: String, languageCode: String = LANG_CODE)
+    operator fun invoke(word: String, languageCode: String = LANG_CODE)
     : Flow<Resource<List<WordInfo>>> {
         return repository.getWordInfo(word, languageCode)
     }
