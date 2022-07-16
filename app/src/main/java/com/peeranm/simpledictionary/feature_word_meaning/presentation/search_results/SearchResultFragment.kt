@@ -42,19 +42,7 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setActionBarTitle(R.string.search_results)
-
-        adapter = SearchResultAdapter(this@SearchResultFragment)
-        binding.apply {
-            listSearchResults.adapter = adapter
-            val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            listSearchResults.layoutManager = layoutManager
-            listSearchResults.addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    layoutManager.orientation
-                )
-            )
-        }
+        binding.bindList()
 
         collectWithLifecycle(viewModel.resultWordInfos) { data ->
             if (data.isNotEmpty()) {
@@ -75,6 +63,14 @@ class SearchResultFragment : Fragment(), OnItemClickListener<WordInfo> {
         findNavController().navigate(
             SearchResultFragmentDirections.actionSearchResultFragmentToWordDetailsFragment(item.id)
         )
+    }
+
+    private fun SearchResultFragmentBinding.bindList() {
+        adapter = SearchResultAdapter(this@SearchResultFragment)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        listSearchResults.adapter = adapter
+        listSearchResults.layoutManager = layoutManager
+        listSearchResults.addItemDecoration(DividerItemDecoration(requireContext(), layoutManager.orientation))
     }
 
     private fun SearchResultFragmentBinding.toggleProgressbar(showNow: Boolean) {
