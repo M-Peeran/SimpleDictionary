@@ -12,17 +12,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RecentSearchesViewModel @Inject constructor(private val wordInfoUseCases: WordInfoUseCases) : ViewModel() {
 
-    private val _recentSearches = MutableStateFlow<List<WordInfo>>(emptyList())
-    val recentSearches: StateFlow<List<WordInfo>> = _recentSearches
-
-    init {
-        viewModelScope.launch {
-            wordInfoUseCases.getAllWordInfos().collect {
-                _recentSearches.value = it
-            }
-        }
-    }
-
+    val recentSearches: StateFlow<List<WordInfo>>
+    get() = wordInfoUseCases.getAllWordInfos().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
 
 }

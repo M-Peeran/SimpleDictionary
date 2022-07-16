@@ -28,7 +28,6 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
 
     private val viewModel: RecentSearchesViewModel by viewModels()
     private var adapter: WordInfoAdapter? = null
-    private var recentSearchJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,18 +45,10 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setActionBarTitle(R.string.app_name)
+        binding.bindList()
 
+        // Replacing this with search in action bar, hence not refactored
         binding.apply {
-            adapter = WordInfoAdapter(this@RecentSearchesFragment)
-            listRecentSearches.adapter = adapter
-            val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            listRecentSearches.layoutManager = layoutManager
-            listRecentSearches.addItemDecoration(
-                DividerItemDecoration(
-                    requireContext(),
-                    layoutManager.orientation
-                )
-            )
             btnSearch.setOnClickListener {
                 val searchText = etextSearch.text.toString()
                 findNavController().navigate(
@@ -65,7 +56,7 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
                 )
             }
         }
-        recentSearchJob = collectLatestWithLifecycle(viewModel.recentSearches) { adapter?.submitList(it) }
+        collectLatestWithLifecycle(viewModel.recentSearches) { adapter?.submitList(it) }
     }
 
     override fun onItemCLick(item: WordInfo, position: Int) {
@@ -74,9 +65,16 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
         )
     }
 
+    private fun RecentSearchesFragmentBinding.bindList() {
+        adapter = WordInfoAdapter(this@RecentSearchesFragment)
+        val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        listRecentSearches.adapter = adapter
+        listRecentSearches.layoutManager = layoutManager
+        listRecentSearches.addItemDecoration(DividerItemDecoration(requireContext(), layoutManager.orientation))
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
-        recentSearchJob = null
         adapter?.onClear()
         adapter = null
         _binding = null
