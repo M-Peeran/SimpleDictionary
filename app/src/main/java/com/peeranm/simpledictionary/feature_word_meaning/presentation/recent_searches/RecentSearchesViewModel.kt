@@ -10,10 +10,17 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RecentSearchesViewModel @Inject constructor(private val wordInfoUseCases: WordInfoUseCases) : ViewModel() {
+class RecentSearchesViewModel @Inject constructor(wordInfoUseCases: WordInfoUseCases) : ViewModel() {
 
-    val recentSearches: StateFlow<List<WordInfo>>
-    get() = wordInfoUseCases.getAllWordInfos().stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
+    private val _recentSearches = MutableStateFlow<List<WordInfo>>(emptyList())
+    val recentSearches: StateFlow<List<WordInfo>> = _recentSearches
+
+    init {
+        wordInfoUseCases.getAllWordInfos()
+            .onEach { _recentSearches.value = it }
+            .launchIn(viewModelScope)
+    }
+
 
 
 }
