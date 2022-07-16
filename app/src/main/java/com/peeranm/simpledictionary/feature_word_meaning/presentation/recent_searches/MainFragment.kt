@@ -1,4 +1,4 @@
-package com.peeranm.simpledictionary.feature_word_meaning.presentation.main
+package com.peeranm.simpledictionary.feature_word_meaning.presentation.recent_searches
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -18,8 +18,6 @@ import com.peeranm.simpledictionary.databinding.MainFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
