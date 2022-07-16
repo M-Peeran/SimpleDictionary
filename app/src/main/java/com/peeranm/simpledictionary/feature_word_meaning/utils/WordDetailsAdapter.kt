@@ -104,5 +104,5 @@ class WordDetailsAdapter() : BaseExpandableListAdapter() {
     override fun isChildSelectable(
         listPosition: Int,
         expandedListPosition: Int
-    ): Boolean { return true }
+    ): Boolean { return false }
 }
