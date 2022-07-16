@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/recentSearchesFragment">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="com.peeranm.simpledictionary.feature_word_meaning.presentation.recent_searches.MainFragment"
-        android:label="main_fragment"
-        tools:layout="@layout/main_fragment" >
+        android:id="@+id/recentSearchesFragment"
+        android:name="com.peeranm.simpledictionary.feature_word_meaning.presentation.recent_searches.RecentSearchesFragment"
+        android:label="recent_searches_fragment"
+        tools:layout="@layout/recent_searches_fragment">
         <action
             android:id="@+id/action_mainFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />

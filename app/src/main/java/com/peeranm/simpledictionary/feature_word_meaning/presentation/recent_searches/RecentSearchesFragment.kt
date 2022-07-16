@@ -14,19 +14,19 @@ import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.core.OnItemClickListener
 import com.peeranm.simpledictionary.core.collectLatestWithLifecycle
 import com.peeranm.simpledictionary.core.setActionBarTitle
-import com.peeranm.simpledictionary.databinding.MainFragmentBinding
+import com.peeranm.simpledictionary.databinding.RecentSearchesFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
+class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
 
-    private var _binding: MainFragmentBinding? = null
-    private val binding: MainFragmentBinding
+    private var _binding: RecentSearchesFragmentBinding? = null
+    private val binding: RecentSearchesFragmentBinding
     get() = _binding!!
 
-    private val viewModel: MainViewModel by viewModels()
+    private val viewModel: RecentSearchesViewModel by viewModels()
     private var adapter: WordInfoAdapter? = null
     private var recentSearchJob: Job? = null
 
@@ -35,7 +35,7 @@ class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = MainFragmentBinding.inflate(
+        _binding = RecentSearchesFragmentBinding.inflate(
             inflater,
             container,
             false
@@ -48,7 +48,7 @@ class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
         setActionBarTitle(R.string.app_name)
 
         binding.apply {
-            adapter = WordInfoAdapter(this@MainFragment)
+            adapter = WordInfoAdapter(this@RecentSearchesFragment)
             listRecentSearches.adapter = adapter
             val layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             listRecentSearches.layoutManager = layoutManager
@@ -61,7 +61,7 @@ class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
             btnSearch.setOnClickListener {
                 val searchText = etextSearch.text.toString()
                 findNavController().navigate(
-                    MainFragmentDirections.actionMainFragmentToSearchResultFragment(searchText)
+                    RecentSearchesFragmentDirections.actionMainFragmentToSearchResultFragment(searchText)
                 )
             }
         }
@@ -70,7 +70,7 @@ class MainFragment : Fragment(), OnItemClickListener<WordInfo> {
 
     override fun onItemCLick(item: WordInfo, position: Int) {
         findNavController().navigate(
-            MainFragmentDirections.actionMainFragmentToWordDetailsFragment(item.id)
+            RecentSearchesFragmentDirections.actionMainFragmentToWordDetailsFragment(item.id)
         )
     }
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_word_meaning.presentation.recent_searches.MainFragment">
+    tools:context=".feature_word_meaning.presentation.recent_searches.RecentSearchesFragment">
 
     <ImageView
         android:id="@+id/btnSearch"
@@ -29,14 +29,15 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:hint="Search for meaning..."
+        android:hint="@string/search_for_meaning"
         android:maxLines="1"
         android:inputType="text"
         app:layout_constraintEnd_toStartOf="@+id/btnSearch"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck" />
+        tools:ignore="TouchTargetSizeCheck"
+        android:importantForAutofill="no" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listRecentSearches"
