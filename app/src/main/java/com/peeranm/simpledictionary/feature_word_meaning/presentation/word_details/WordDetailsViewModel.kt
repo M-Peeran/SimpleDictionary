@@ -3,6 +3,7 @@ package com.peeranm.simpledictionary.feature_word_meaning.presentation.word_deta
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.peeranm.simpledictionary.core.Constants
 import com.peeranm.simpledictionary.core.getDummyWordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.use_cases.WordInfoUseCases
@@ -23,8 +24,8 @@ class WordDetailsViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            val wordInfoId = savedStateHandle.get<Int>("wordInfoId") ?: -1
-            if (wordInfoId != -1) {
+            val wordInfoId = savedStateHandle.get<Long>(Constants.ARG_WORD_INFO_ID)
+            if (wordInfoId != null) {
                 _wordInfo.value = wordInfoUseCases.getWordInfoFromCache(wordInfoId)
             }
         }
