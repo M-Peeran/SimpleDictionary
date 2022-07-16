@@ -11,9 +11,9 @@ import com.peeranm.simpledictionary.core.collectWithLifecycle
 import com.peeranm.simpledictionary.core.setActionBarTitle
 import com.peeranm.simpledictionary.databinding.WordDetailsFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.model.Definition
+import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.feature_word_meaning.utils.WordDetailsAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 
 @AndroidEntryPoint
 class WordDetailsFragment : Fragment() {
@@ -24,7 +24,6 @@ class WordDetailsFragment : Fragment() {
 
     private val viewModel: WordDetailsViewModel by viewModels()
     private var wordDetailsAdapter: WordDetailsAdapter? = null
-    private var wordInfoJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,22 +41,26 @@ class WordDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setActionBarTitle(R.string.word_details)
+        binding.bindExpandableList()
 
+        collectWithLifecycle(viewModel.wordInfo) { binding.bindWordInfo(it) }
+    }
+
+    private fun WordDetailsFragmentBinding.bindWordInfo(wordInfo: WordInfo) {
+        textSelcetedWord.text = wordInfo.word
+        textWordPhonetic.text = wordInfo.phonetic
+        val data = mutableMapOf<String, List<Definition>>()
+        wordInfo.meanings.forEach { meaning -> data[meaning.partOfSpeech] = meaning.definitions }
+        wordDetailsAdapter?.submitData(data)
+    }
+
+    private fun WordDetailsFragmentBinding.bindExpandableList() {
         wordDetailsAdapter = WordDetailsAdapter()
-        binding.listMeanings.setAdapter(wordDetailsAdapter)
-
-        wordInfoJob = collectWithLifecycle(viewModel.wordInfo) { wordInfo ->
-            binding.textSelcetedWord.text = wordInfo.word
-            binding.textWordPhonetic.text = wordInfo.phonetic
-            val data = mutableMapOf<String, List<Definition>>()
-            wordInfo.meanings.forEach { meaning -> data[meaning.partOfSpeech] = meaning.definitions }
-            wordDetailsAdapter?.submitData(data)
-        }
+        listMeanings.setAdapter(wordDetailsAdapter)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        wordInfoJob = null
         wordDetailsAdapter = null
         _binding = null
     }
