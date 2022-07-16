@@ -1,54 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listRecentSearches"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".feature_word_meaning.presentation.recent_searches.RecentSearchesFragment">
-
-    <ImageView
-        android:id="@+id/btnSearch"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:clickable="true"
-        android:contentDescription="@string/search"
-        android:focusable="true"
-        android:padding="12dp"
-        app:layout_constraintBottom_toBottomOf="@+id/etextSearch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/etextSearch"
-        app:layout_constraintTop_toTopOf="@+id/etextSearch"
-        app:srcCompat="@drawable/ic_search" />
-
-    <EditText
-        android:id="@+id/etextSearch"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:hint="@string/search_for_meaning"
-        android:maxLines="1"
-        android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/btnSearch"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck"
-        android:importantForAutofill="no" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listRecentSearches"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etextSearch" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:context=".feature_word_meaning.presentation.recent_searches.RecentSearchesFragment" />

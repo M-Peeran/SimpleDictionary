@@ -3,5 +3,6 @@
     <string name="search">search</string>
     <string name="search_results">Search Results</string>
     <string name="word_details">Word Details</string>
-    <string name="search_for_meaning">Search for meaning...</string>
+    <string name="search_for_meaning">Search for meaning…</string>
+    <string name="recent_searches">Recent Searches</string>
 </resources>

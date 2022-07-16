@@ -1,9 +1,8 @@
 package com.peeranm.simpledictionary.feature_word_meaning.presentation.recent_searches
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,10 +16,9 @@ import com.peeranm.simpledictionary.core.setActionBarTitle
 import com.peeranm.simpledictionary.databinding.RecentSearchesFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Job
 
 @AndroidEntryPoint
-class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
+class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo>, SearchView.OnQueryTextListener {
 
     private var _binding: RecentSearchesFragmentBinding? = null
     private val binding: RecentSearchesFragmentBinding
@@ -44,18 +42,9 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setActionBarTitle(R.string.app_name)
+        setHasOptionsMenu(true)
+        setActionBarTitle(R.string.recent_searches)
         binding.bindList()
-
-        // Replacing this with search in action bar, hence not refactored
-        binding.apply {
-            btnSearch.setOnClickListener {
-                val searchText = etextSearch.text.toString()
-                findNavController().navigate(
-                    RecentSearchesFragmentDirections.actionMainFragmentToSearchResultFragment(searchText)
-                )
-            }
-        }
         collectLatestWithLifecycle(viewModel.recentSearches) { adapter?.submitList(it) }
     }
 
@@ -64,6 +53,23 @@ class RecentSearchesFragment : Fragment(), OnItemClickListener<WordInfo> {
             RecentSearchesFragmentDirections.actionMainFragmentToWordDetailsFragment(item.id)
         )
     }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.options_menu, menu)
+        val actionSearch = menu.findItem(R.id.actionSearchMeaning).actionView as SearchView
+        actionSearch.setOnQueryTextListener(this)
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (!query.isNullOrEmpty()) {
+            findNavController().navigate(
+                RecentSearchesFragmentDirections.actionMainFragmentToSearchResultFragment(query)
+            )
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?) = false
 
     private fun RecentSearchesFragmentBinding.bindList() {
         adapter = WordInfoAdapter(this@RecentSearchesFragment)
