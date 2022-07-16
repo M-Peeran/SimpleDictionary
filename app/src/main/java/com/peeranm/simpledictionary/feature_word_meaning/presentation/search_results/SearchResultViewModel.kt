@@ -23,9 +23,6 @@ class SearchResultViewModel @Inject constructor(
     private val _message = MutableStateFlow("")
     val message = _message.asStateFlow()
 
-    private val _wordInfos = MutableStateFlow<List<WordInfo>>(emptyList())
-    val wordInfos = _wordInfos.asStateFlow()
-
     init {
         val searchText = savedStateHandle.get<String>(Constants.SEARCH_TEXT)
         if (searchText  != null) findMeaning(searchText)
