@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import com.peeranm.simpledictionary.R
 import com.peeranm.simpledictionary.core.collectWithLifecycle
 import com.peeranm.simpledictionary.core.setActionBarTitle
+import com.peeranm.simpledictionary.core.showToast
 import com.peeranm.simpledictionary.databinding.WordDetailsFragmentBinding
 import com.peeranm.simpledictionary.feature_word_meaning.model.Definition
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
@@ -44,6 +45,10 @@ class WordDetailsFragment : Fragment() {
         binding.bindExpandableList()
 
         collectWithLifecycle(viewModel.wordInfo) { binding.bindWordInfo(it) }
+
+        collectWithLifecycle(viewModel.message) { message ->
+            if (message.isNotEmpty()) showToast(message)
+        }
     }
 
     private fun WordDetailsFragmentBinding.bindWordInfo(wordInfo: WordInfo) {
