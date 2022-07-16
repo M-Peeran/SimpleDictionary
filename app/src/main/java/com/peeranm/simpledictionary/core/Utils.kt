@@ -1,9 +1,9 @@
 package com.peeranm.simpledictionary.core
 
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -18,6 +18,10 @@ fun getDummyWordInfo() = WordInfo(-1, "", emptyList(), "", "")
 
 fun Fragment.setActionBarTitle(@StringRes stringResId: Int) {
     (this.requireActivity() as AppCompatActivity).supportActionBar?.title = this.getString(stringResId)
+}
+
+fun Fragment.showToast(message: String, duration: Int =  Toast.LENGTH_SHORT) {
+    Toast.makeText(requireContext(), message, duration).show()
 }
 
 fun <T> LifecycleOwner.collectWithLifecycle(flow: Flow<T>, collect: suspend (T) -> Unit) =

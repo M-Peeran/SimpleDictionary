@@ -23,5 +23,5 @@ interface WordInfoDao {
     fun getAllWordInfos(): Flow<List<WordInfoEntity>>
 
     @Query("select * from word_info where id =:id")
-    suspend fun getWordInfoById(id: Int): WordInfoEntity
+    suspend fun getWordInfoById(id: Long): WordInfoEntity
 }

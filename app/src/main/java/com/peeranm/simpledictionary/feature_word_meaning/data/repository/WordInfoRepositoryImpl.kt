@@ -4,8 +4,8 @@ import com.peeranm.simpledictionary.feature_word_meaning.data.local.WordInfoDao
 import com.peeranm.simpledictionary.feature_word_meaning.data.remote.RetrofitInstance
 import com.peeranm.simpledictionary.feature_word_meaning.model.WordInfo
 import com.peeranm.simpledictionary.core.Resource
-import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoDtoMapper
-import com.peeranm.simpledictionary.feature_word_meaning.utils.WordInfoEntityMapper
+import com.peeranm.simpledictionary.feature_word_meaning.utils.mappers.WordInfoDtoMapper
+import com.peeranm.simpledictionary.feature_word_meaning.utils.mappers.WordInfoEntityMapper
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
@@ -20,13 +20,13 @@ class WordInfoRepositoryImpl(
     private val wordInfoEntityMapper: WordInfoEntityMapper
 ) : WordInfoRepository {
 
-    override suspend fun getWordInfoById(id: Int): WordInfo {
+    override suspend fun getWordInfoById(id: Long): WordInfo {
         return wordInfoEntityMapper.fromEntity(
             wordInfoDao.getWordInfoById(id)
         )
     }
 
-    override suspend fun getWordInfo(word: String, languageCode: String)
+    override fun getWordInfo(word: String, languageCode: String)
     : Flow<Resource<List<WordInfo>>> = flow {
         emit(Resource.Loading())
         val oldWordInfos = wordInfoEntityMapper.fromEntities(wordInfoDao.getWordInfos(word))
